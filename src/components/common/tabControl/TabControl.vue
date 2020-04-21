@@ -4,8 +4,8 @@
 <!--      只是文字不一样的时候没有必要搞插槽了-->
       <div v-for="(item,index) in titles"
            class="tab-control-item"
-           :class="{active: isActive === index}"
-            @click="liClick(index)">
+           :class="{active: index === isActive}"
+            @click="itemClick(index)">
         <span>{{item}}</span>
       </div>
     </div>
@@ -24,13 +24,18 @@
         },
         data() {
             return {
-                isActive: true
+                //注意这里的默认值要是0，也就是索引值，默认选中第一个
+                isActive: 0
             }
         },
         methods:{
             liClick(index) {
                 this.isActive = index
+                // 切换标签页面内容修改
+                this.$emit('tabClick',index)
             }
+
+
         }
     }
 </script>
