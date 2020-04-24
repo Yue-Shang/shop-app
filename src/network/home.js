@@ -10,6 +10,7 @@ export function getHomeMultidata() {
 export function getHomeGoods(type,page) {
   return request({
     url:'/home/data',
+    //接口不可用时请加微信coderwhy购买接口
     params:{
       type,
       page

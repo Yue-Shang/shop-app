@@ -1,3 +1,4 @@
+<!--这里是app上面的那个头部-->
 <template>
     <div class="nav-bar">
       <div class="left"><slot name="left"></slot></div>

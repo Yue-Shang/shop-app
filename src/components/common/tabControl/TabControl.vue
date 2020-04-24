@@ -29,13 +29,11 @@
             }
         },
         methods:{
-            liClick(index) {
+            itemClick(index) {
                 this.isActive = index
                 // 切换标签页面内容修改
                 this.$emit('tabClick',index)
             }
-
-
         }
     }
 </script>
