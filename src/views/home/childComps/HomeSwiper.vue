@@ -35,7 +35,6 @@
                     this.$emit('swiperImageLoad')
                     this.isLoad = true
                 }
-                console.log('sdjshdjsahdlkashdkjas98000000000000000000')
             }
         }
     }

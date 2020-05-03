@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-item">
-    <img :src="goodsItem.show.img" alt="" @load="imageLoad"><!--监听是否加载完-->
+  <div class="goods-item" @click="itemClick">
+    <img :src="showImage" alt="" @load="imageLoad"><!--监听是否加载完-->
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -20,9 +20,19 @@
                 }
             }
         },
+        computed: {
+            showImage() {
+                //解决image地址来自不同地方，还要用一个插件的问题
+                return this.goodsItem.image || this.goodsItem.show.img
+            }
+        },
         methods:{
             imageLoad(){
                 this.$bus.$emit('itemImageLoad')
+            },
+            itemClick(){
+                // console.log('跳转到详情页');
+                this.$router.push('/detail/' + this.goodsItem.iid)
             }
         }
     }

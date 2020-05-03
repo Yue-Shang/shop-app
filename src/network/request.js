@@ -8,14 +8,14 @@ export function request(config) {
   })
   //2.axios拦截器
   instance.interceptors.request.use(config =>{
-    console.log(config);
+    // console.log(config);
     return config//拦截掉之后还要原封不动的返回出去
   },err =>{} );
   instance.interceptors.response.use(res => {
     // console.log(res);
     return res.data
   },err =>{
-    console.log(err);
+    // console.log(err);
     if (err && err.response) {
       switch (err.response.status) {
         case 400:

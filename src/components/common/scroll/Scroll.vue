@@ -40,7 +40,6 @@
             },
             refresh() {
                 this.scroll && this.scroll.refresh()
-                console.log('--------')
             },
             getScrollY() {
                 return this.scroll ? this.scroll.y : 0
@@ -56,7 +55,6 @@
             if(this.probeType === 2 || this.probeType === 3) {
               this.scroll.on('scroll',(position) =>{
                   this.$emit('scroll', position)
-                  // this.scroll.refresh()
               })
             }
             // 监听滚动到底部
@@ -65,12 +63,10 @@
                     this.$emit('pullingUp')
                 })
             }
-            console.log(this.scroll)
+            // console.log(this.scroll)
             //打印BScroll {…}
             // 里面有一个属性scrollerHeight,我们看看这个值是多少，值太小了不对（应该在1000以上，最好是4000上下）
 
-        },
-        updated(){
         },
 
     }
