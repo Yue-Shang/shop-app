@@ -1,6 +1,6 @@
 <!--这里是app上面的那个头部-->
 <template>
-    <div class="nav-bar">
+    <div id="nav-bar">
       <div class="left"><slot name="left"></slot></div>
       <div class="center"><slot name="center"></slot></div>
       <div class="right"><slot name="right"></slot></div>
@@ -14,15 +14,19 @@
 </script>
 
 <style scoped>
-.nav-bar {
-  display: flex;
-  height: 44px;
-  line-height: 44px;
-  text-align: center;
-}
-.left, .right{
-  width: 60px;
-}
+  #nav-bar {
+    position: relative;
+    z-index: 10;
+
+    display: flex;
+
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+  }
+  .left, .right{
+    width: 60px;
+  }
   .center {
     flex:1;
   }

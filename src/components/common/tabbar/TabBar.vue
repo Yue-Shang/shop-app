@@ -1,5 +1,5 @@
 <template>
-  <div id="tab-bar">
+  <div class="tab-bar">
     <!--      插槽-->
     <slot></slot>
   </div>
@@ -12,7 +12,7 @@
 </script>
 
 <style scoped>
-  #tab-bar{
+  .tab-bar{
     display: flex;
     background-color: #f6f6f6;
     position: fixed;

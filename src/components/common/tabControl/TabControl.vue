@@ -6,7 +6,7 @@
            class="tab-control-item"
            :class="{active: index === isActive}"
             @click="itemClick(index)">
-        <span>{{item}}</span>
+        <span>{{item}}</span >
       </div>
     </div>
 </template>
@@ -43,7 +43,8 @@
   display: flex;
   text-align: center;
   font-size: 15px;
-  background-color: white;
+  background-color: #ffffff;
+  z-index: 9;
 }
 .tab-control-item{
   flex: 1;

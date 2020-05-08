@@ -23,7 +23,13 @@
             pullUpLoad: {
                 type: Boolean,
                 default: false
-            }
+            },
+            data: {
+                type: Array,
+                default: () => {
+                    return []
+                }
+            },
         },
         data(){
             return {
@@ -42,7 +48,8 @@
                 this.scroll && this.scroll.refresh()
             },
             getScrollY() {
-                return this.scroll ? this.scroll.y : 0
+                //这里不能写 return this.scroll ? this.scroll.y : 0否则点详情再返回会回到顶部，有bug
+                return this.scroll.y
             }
         },
         mounted() {
@@ -55,6 +62,7 @@
             if(this.probeType === 2 || this.probeType === 3) {
               this.scroll.on('scroll',(position) =>{
                   this.$emit('scroll', position)
+                  // console.log(position);
               })
             }
             // 监听滚动到底部
@@ -68,6 +76,11 @@
             // 里面有一个属性scrollerHeight,我们看看这个值是多少，值太小了不对（应该在1000以上，最好是4000上下）
 
         },
+        watch: {
+            data() {
+                setTimeout(this.refresh, 20)
+            }
+        }
 
     }
 </script>

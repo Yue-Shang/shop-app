@@ -84,6 +84,7 @@
     line-height: 44px;
 
     background-color: #e3e7e5;
+    font-size: 15px;
   }
   .check-content{
     display: flex;
@@ -103,10 +104,12 @@
   }
   .calculate{
     width: 90px;
+    height: 35px;
     background: orangered;
     border-radius: 25px;
     color: white;
     text-align: center;
+    line-height: 35px;
     margin: 5px;
   }
 </style>

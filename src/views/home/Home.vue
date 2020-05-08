@@ -5,6 +5,7 @@
     <scroll class="content"
             ref="scroll"
             :probe-type="3"
+            :data="showGoods"
             @scroll="contentScroll"
             :pull-up-load="true"
             @pullingUp="loadMore">
@@ -75,13 +76,14 @@
         },
         //将底部导航设置为活跃和不活跃
         activated() {
+            console.log('activated设置位置' + this.saveY);
             this.$refs.scroll.scrollTo(0, this.saveY, 0);
             this.$refs.scroll.refresh()
         },
         deactivated() {
             //1.保存Y值
             this.saveY = this.$refs.scroll.getScrollY();
-
+            console.log('deactivated记录位置' + this.saveY);
             //2.取消全局事件的监听
             this.$bus.$off('itemImgLoad',this.itemImgListener)
         },
@@ -137,7 +139,7 @@
                 this.listenShowBackTop(position)
                 // 2.决定tabControl是否吸顶(position: fixed)
                 this.isTabFixed = (-position.y) > this.tabOffsetTop
-                // console.log('这个值现在是' + this.isTabFixed);
+                console.log('这个值现在是' + this.isTabFixed);
             },
             loadMore() {
                 this.getHomeGoods(this.currentType)
@@ -182,7 +184,7 @@
   .home-nav {
     background-color: var(--color-tint);
     color: white;
-
+    font-size: 15px;
     /*在使用浏览器原生滚动时, 为了让导航不跟随一起滚动*/
     /*position: fixed;*/
     /*left: 0;*/

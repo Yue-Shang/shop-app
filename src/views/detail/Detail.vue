@@ -1,6 +1,6 @@
 <template>
 <!--    详情页面-->
-  <div id="detail">
+  <div class="detail">
     <detail-nav-bar class="detail-nav" @titleClick="titleClick" ref="nav"/>
     <scroll class="content"
             ref="scroll"
@@ -190,7 +190,7 @@
 </script>
 
 <style scoped>
-  #detail{
+  .detail{
     position: relative;
     z-index: 9;
     background-color: #ffffff;

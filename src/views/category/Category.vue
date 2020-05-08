@@ -1,111 +1,174 @@
 <template>
-  <div id="home">
-    <div class="wrapper">
-      <!--    <p>为了让滚动更加顺滑,用better-scroll这个插件</p>-->
-      <ul>
-        <li>分类列表1</li>
-        <li>分类列表2</li>
-        <li>分类列表3</li>
-        <li>分类列表4</li>
-        <li>分类列表5</li>
-        <li>分类列表974</li>
-        <li>分类列表975</li>
-        <li>分类列表976</li>
-        <li>分类列表977</li>
-        <li>分类列表978</li>
-        <li>分类列表979</li>
-        <li>分类列表980</li>
-        <li>分类列表981</li>
-        <li>分类列表982</li>
-        <li>分类列表983</li>
-        <li>分类列表984</li>
-        <li>分类列表985</li>
-        <li>分类列表986</li>
-        <li>分类列表987</li>
-        <li>分类列表988</li>
-        <li>分类列表989</li>
-        <li>分类列表990</li>
-        <li>分类列表991</li>
-        <li>分类列表992</li>
-        <li>分类列表993</li>
-        <li>分类列表994</li>
-        <li>分类列表995</li>
-        <li>分类列表996</li>
-        <li>分类列表997</li>
-        <li>分类列表998</li>
-        <li>分类列表999</li>
-        <li>分类列表1000</li>
-        <li>分类列表976</li>
-        <li>分类列表977</li>
-        <li>分类列表978</li>
-        <li>分类列表979</li>
-        <li>分类列表980</li>
-        <li>分类列表981</li>
-        <li>分类列表982</li>
-        <li>分类列表983</li>
-        <li>分类列表984</li>
-        <li>分类列表985</li>
-        <li>分类列表986</li>
-        <li>分类列表987</li>
-        <li>分类列表988</li>
-        <li>分类列表989</li>
-        <li>分类列表990</li>
-        <li>分类列表991</li>
-        <li>分类列表992</li>
-        <li>分类列表993</li>
-        <li>分类列表994</li>
-        <li>分类列表995</li>
-        <li>分类列表996</li>
-        <li>分类列表997</li>
-        <li>分类列表998</li>
-        <li>分类列表999</li>
-        <li>分类列表1000</li>
-      </ul>
+  <div id="category">
+    <nav-bar class="category-nav"><div slot="center">分类</div></nav-bar>
+    <tab-control :titles="['综合', '新品', '销量']" @tabClick="tabClick" ref="tabControl1" class="tab-control1" v-show="isTabFixed"/>
+    <div class="content">
+      <category-list :category="category" @selectUtem="selectUtem"/>
+      <scroll id="tab-content"
+              :data="[categoryData]"
+              :pull-up-load="true"
+              :probe-type="3"
+              @scroll="contentScroll"
+              ref="scroll">
+         <div>
+            <category-goods :subcategories="showSubcategory" @GoodsImageLoad="GoodsImageLoad"/>
+            <tab-control :titles="['综合', '新品', '销量']" @tabClick="tabClick" ref="tabControl2"/>
+            <goods-list :goods="showCategoryDetail" class="goods-list"/>
+         </div>
+        </scroll>
     </div>
   </div>
-
 </template>
 
 <script>
-    import BScroll from '@better-scroll/core'
-    import Pullup from '@better-scroll/pull-up'
+    import CategoryList from "./childComps/CategoryList";
+    import CategoryGoods from "./childComps/CategoryGoods";
 
-    BScroll.use(Pullup)
+    import NavBar from "components/common/navbar/NavBar";
+    import GoodsList from "components/content/goods/GoodsList";
+
+    import Scroll from "components/common/scroll/Scroll";
+    import TabControl from "components/common/tabControl/TabControl";
+
+    import {getCategoryList,getSubcategory,getCategoryDetail} from "network/Category";
+    import {POP, SELL, NEW} from "@/common/const";
+    import {tabControlMixin} from "@/common/mixin";
     export default {
-        name: "Category.vue",
+        name: "Category",
+        components:{
+            NavBar,
+            Scroll,
+            TabControl,
+            CategoryList,
+            CategoryGoods,
+            GoodsList
+
+        },
+        mixins: [tabControlMixin],
         data (){
             return{
-               scroll:null
+                category:[],
+                // isTabFixed:false,
+                isActive: -1,
+                categoryData: {},
+                tabOffsetTop: 0,
+                isTabFixed: false
             }
         },
-        //注意这里用的生命周期是mounted，created是在组件创建完成之后调用的，这时候还没有挂载模板所以找不到wrapper
-       mounted() {
-            // new BScroll(document.querySelector('.content'))直接查找标签
-           this.scroll = new BScroll(document.querySelector('.wrapper'),{
-                probeType:3,
-               pullUpLoad: true
-            })
-           this.scroll.on('scroll',(position) => {
-               // console.log(position)
-           })
-           this.scroll.on('pullingUp',() =>{
-               console.log('上拉加载更多')
-               this.scroll.finishPullUp()//标识一次上拉加载动作结束。
-           })
+        created() {
+            this.getCategoryList()
+        },
+        computed: {
+            showSubcategory() {
+                console.log(this.isActive);
+                if (this.isActive === -1) return {};
+                return this.categoryData[this.isActive].subcategories;
+            },
+            showCategoryDetail() {
+                if (this.isActive === -1) return []
+                return this.categoryData[this.isActive].categoryDetail[this.currentType]
+            }
+        },
+        methods:{
+            getCategoryList(){
+                getCategoryList().then(res =>{
+                    // 1.获取分类数据
+                    this.category = res.data.category.list
+                    // // 2.初始化每个类别的子数据
+                    for (let i = 0; i < this.category.length; i++) {
+                        this.categoryData[i] = {
+                            subcategories:{},
+                            categoryDetail: {
+                                'pop': [],
+                                'new': [],
+                                'sell': []
+                            }
+                        }
+                    }
+                    this.getSubcategory(0)
+                })
+            },
+            selectUtem(index){
+                this.getSubcategory(index)
+            },
+            getSubcategory(index){
+                this.isActive = index
+                const maitKey = this.category[index].maitKey;
+                getSubcategory(maitKey).then(res =>{
+                    this.categoryData[index].subcategories=res.data
+                    this.categoryData = {...this.categoryData}
+                    this.getCategoryDetail(POP)
+                    this.getCategoryDetail(NEW)
+                    this.getCategoryDetail(SELL)
+                })
+            },
+            getCategoryDetail(type){
+                const miniWallkey = this.category[this.isActive].miniWallkey;
+                getCategoryDetail(miniWallkey, type).then(res =>{
+                    console.log(res);
+                    this.categoryData[this.isActive].categoryDetail[type] = res
+                    this.categoryData = {...this.categoryData}
+                })
+            },
+            GoodsImageLoad() {
+                // offsetTop 指“tabControl距category-goods层下边框的距离，因为距其上边最近的是category-goods层下边框
+                this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
+                console.log('这个高度是' + this.$refs.tabControl2.$el.offsetTop);
+            },
+            contentScroll(position) {
+                // 决定tabControl是否吸顶(position: fixed)
+                this.isTabFixed = (-position.y) > this.tabOffsetTop
+                // console.log('这个值现在是' + this.isTabFixed);
+            },
         }
     }
 </script>
 
 <style scoped>
-  #home{
+  #category{
     height: 100vh;
-    position: relative;
   }
-.wrapper{
-  /*height: 150px;*/
-  background-color: antiquewhite;
-    height: calc(100% - 93px);;
-    overflow: hidden;
-    margin-top: 44px;
-}
+  .category-nav {
+    background-color: var(--color-tint);
+    color: #ffffff;
+    font-size: 15px;
+  }
+  .content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 44px;
+    bottom: 49px;
+
+    display: flex;
+  }
+  #tab-content {
+    height: 100%;
+    flex: 1;
+  }
+  .tab-control1{
+    position: relative;
+    z-index: 9;
+    margin-left: 100px;
+  }
+  /*.category-content{*/
+  /*  height: 100%;*/
+  /*  width: 75%;*/
+  /*  float: right;*/
+  /*}*/
+  /*.goods-list{*/
+  /*  width: 100%;*/
+  /*}*/
+  /*.tab-control{*/
+  /*  position: relative;*/
+  /*  z-index: 9;*/
+  /*  float: right;*/
+  /*  width: 100%;*/
+  /*}*/
+
+
+  /*#tab-content {*/
+  /*  height: 100%;*/
+  /*  flex: 1;*/
+  /*}*/
 </style>

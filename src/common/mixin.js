@@ -1,4 +1,5 @@
 import {debounce} from "./utils"
+import {POP, NEW, SELL} from "./const";
 import BackTop from "components/common/backTop/BackTop";
 
 export const itemListenerMixin = {
@@ -32,6 +33,32 @@ export const backTopMixin = {
     },
     listenShowBackTop(position){
       this.isShowBackTop = (-position.y) > 1000;
+    }
+  }
+}
+
+export const tabControlMixin = {
+  data: function () {
+    return {
+      currentType: POP
+    }
+  },
+  methods: {
+    tabClick(index) {
+      switch (index) {
+        case 0:
+          this.currentType = POP
+          break
+        case 1:
+          this.currentType = NEW
+          break
+        case 2:
+          this.currentType = SELL
+          break
+      }
+      console.log(this.currentType);
+      this.$refs.tabControl1.isActive = index;//获取对应标签的索引
+      this.$refs.tabControl2.isActive = index;
     }
   }
 }

@@ -1,10 +1,10 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="showImage" alt="" @load="imageLoad"><!--监听是否加载完-->
+    <img v-lazy="showImage" alt="" :key="showImage" @load="imageLoad" ><!--监听是否加载完-->
     <div class="goods-info">
-      <p>{{goodsItem.title}}</p>
-      <span class="price">{{goodsItem.price}}</span>
-      <span class="collect">{{goodsItem.cfav}}</span>
+      <p>{{goods.title}}</p>
+      <span class="price">{{goods.price}}</span>
+      <span class="collect">{{goods.cfav}}</span>
     </div>
   </div>
 </template>
@@ -13,7 +13,7 @@
     export default {
         name: "GoodsListItem",
         props:{
-            goodsItem:{
+            goods:{
                 type:Object,
                 default() {
                     return {}
@@ -23,7 +23,8 @@
         computed: {
             showImage() {
                 //解决image地址来自不同地方，还要用一个插件的问题
-                return this.goodsItem.image || this.goodsItem.show.img
+                // return this.goods.image || this.goods.show.img || this.goods.img
+                return this.goods.img || this.goods.image || this.goods.show.img
             }
         },
         methods:{
@@ -32,7 +33,7 @@
             },
             itemClick(){
                 // console.log('跳转到详情页');
-                this.$router.push('/detail/' + this.goodsItem.iid)
+                this.$router.push('/detail/' + this.goods.iid)
             }
         }
     }

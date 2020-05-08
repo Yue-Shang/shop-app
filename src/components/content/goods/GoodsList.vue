@@ -1,7 +1,7 @@
 <template>
     <div class="goods">
 <!--      ul>li{商品列表$}*10-->
-     <goods-list-item v-for="(item,index) in goods" :key="index" :goods-item="item"/>
+     <goods-list-item v-for="(item,index) in goods" :key="index" :goods="item"/>
     </div>
 </template>
 
