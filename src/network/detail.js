@@ -48,7 +48,7 @@ export class GoodsParam {
 //商品推荐
 export function getRecommend() {
   return request({
-    url: 'http://152.136.185.210:8000/api/h8/recommend'
+    url: '/recommend'
   })
 }
 // const g = new Goods()

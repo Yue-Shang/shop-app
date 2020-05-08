@@ -33,38 +33,10 @@
         },
         data(){
             return {
-                scroll: {}
+                scroll: null
             }
         },
-        mounted() {
-            setTimeout(this.__initScroll, 20)
-        },
         methods:{
-            __initScroll() {
-                // 1.初始化BScroll对象
-                if (!this.$refs.wrapper) return
-                this.scroll = new BScroll(this.$refs.wrapper, {
-                    probeType: this.probeType,
-                    click: true,
-                    pullUpLoad: this.pullUpLoad
-                })
-                // 监听滚动的位置
-                if (this.probeType === 2 || this.probeType === 3) {
-                    this.scroll.on('scroll', (position) => {
-                        this.$emit('scroll', position)
-                        // console.log(position);
-                    })
-                }
-                // 监听滚动到底部
-                if (this.pullUpLoad) {
-                    this.scroll.on('pullingUp', () => {
-                        this.$emit('pullingUp')
-                    })
-                }
-                // console.log(this.scroll)
-                //打印BScroll {…}
-                // 里面有一个属性scrollerHeight,我们看看这个值是多少，值太小了不对（应该在1000以上，最好是4000上下）
-            },
             scrollTo(x, y, time =300) {
                 //逻辑与，前面不执行，后面都不执行
                 this.scroll && this.scroll.scrollTo && this.scroll.scrollTo(x, y, time)
@@ -80,7 +52,30 @@
                 return this.scroll.y
             }
         },
+        mounted() {
+            this.scroll = new BScroll(this.$refs.wrapper, {
+                click: true,//控制div是否可以点击
+                probeType: this.probeType,
+                pullUpLoad: this.pullUpLoad
+            })
+          // 监听滚动的位置
+            if(this.probeType === 2 || this.probeType === 3) {
+              this.scroll.on('scroll',(position) =>{
+                  this.$emit('scroll', position)
+                  // console.log(position);
+              })
+            }
+            // 监听滚动到底部
+            if(this.pullUpLoad) {
+                this.scroll.on('pullingUp', () => {
+                    this.$emit('pullingUp')
+                })
+            }
+            // console.log(this.scroll)
+            //打印BScroll {…}
+            // 里面有一个属性scrollerHeight,我们看看这个值是多少，值太小了不对（应该在1000以上，最好是4000上下）
 
+        },
         watch: {
             data() {
                 setTimeout(this.refresh, 20)
