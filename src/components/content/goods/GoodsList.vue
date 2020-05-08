@@ -28,6 +28,7 @@
   flex-wrap: wrap;
   /*让图片均等分布*/
   justify-content: space-around;/*中间距离均等分布*/
+  background-color: #ffffff;
 }
 
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
+    <nav-bar class="nav-bar"><div slot="center">购物街</div></nav-bar>
     <tab-control :titles="titles" @tabClick="tabClick" ref="tabControl1" class="tab-control" v-show="isTabFixed"/>
     <scroll class="content"
             ref="scroll"
@@ -15,7 +15,7 @@
       <goods-list :goods="showGoods" />
     </scroll>
 <!--组件怎样进行点击？监听原生组件,.native-->
-    <back-top @click.native="backClick" v-show="isShowBackTop"/>
+    <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
   </div>
 </template>
 
@@ -29,6 +29,7 @@
     import TabControl from "components/common/tabControl/TabControl";
     import GoodsList from "components/content/goods/GoodsList";
     import Scroll from "components/common/scroll/Scroll";
+    import BackTop from "components/common/backTop/BackTop";
     // import BackTop from "components/common/backTop/BackTop";
 
     // 请求方法
@@ -45,7 +46,7 @@
             TabControl,
             GoodsList,
             Scroll,
-            // BackTop,
+            BackTop,
         },
         mixins: [itemListenerMixin,backTopMixin],
         data(){
@@ -181,7 +182,7 @@
     height: 100vh;
     position: relative;
   }
-  .home-nav {
+  .nav-bar {
     background-color: var(--color-tint);
     color: white;
     font-size: 15px;
@@ -209,7 +210,6 @@
      bottom: 44px;
      left: 0;
      right: 0;
-    /*background-color: aqua;*/
   }
   /*或者*/
   /*.content{*/

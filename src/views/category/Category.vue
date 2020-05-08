@@ -1,6 +1,6 @@
 <template>
   <div id="category">
-    <nav-bar class="category-nav"><div slot="center">分类</div></nav-bar>
+    <nav-bar class="nav-bar"><div slot="center">分类</div></nav-bar>
     <tab-control :titles="['综合', '新品', '销量']" @tabClick="tabClick" ref="tabControl1" class="tab-control1" v-show="isTabFixed"/>
     <div class="content">
       <category-list :category="category" @selectUtem="selectUtem"/>
@@ -8,10 +8,11 @@
               :data="[categoryData]"
               :pull-up-load="true"
               :probe-type="3"
-              @scroll="contentScroll"
               ref="scroll">
+<!--      @scroll="contentScroll"-->
          <div>
-            <category-goods :subcategories="showSubcategory" @GoodsImageLoad="GoodsImageLoad"/>
+<!--            <category-goods :subcategories="showSubcategory" @GoodsImageLoad="GoodsImageLoad"/>-->
+           <category-goods :subcategories="showSubcategory"/>
             <tab-control :titles="['综合', '新品', '销量']" @tabClick="tabClick" ref="tabControl2"/>
             <goods-list :goods="showCategoryDetail" class="goods-list"/>
          </div>
@@ -110,16 +111,16 @@
                     this.categoryData = {...this.categoryData}
                 })
             },
-            GoodsImageLoad() {
-                // offsetTop 指“tabControl距category-goods层下边框的距离，因为距其上边最近的是category-goods层下边框
-                this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
-                console.log('这个高度是' + this.$refs.tabControl2.$el.offsetTop);
-            },
-            contentScroll(position) {
-                // 决定tabControl是否吸顶(position: fixed)
-                this.isTabFixed = (-position.y) > this.tabOffsetTop
-                // console.log('这个值现在是' + this.isTabFixed);
-            },
+            // GoodsImageLoad() {
+            //     // offsetTop 指“tabControl距category-goods层下边框的距离，因为距其上边最近的是category-goods层下边框
+            //     this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
+            //     console.log('这个高度是' + this.$refs.tabControl2.$el.offsetTop);
+            // },
+            // contentScroll(position) {
+            //     // 决定tabControl是否吸顶(position: fixed)
+            //     this.isTabFixed = (-position.y) > this.tabOffsetTop
+            //     // console.log('这个值现在是' + this.isTabFixed);
+            // },
         }
     }
 </script>
@@ -128,7 +129,7 @@
   #category{
     height: 100vh;
   }
-  .category-nav {
+  .nav-bar {
     background-color: var(--color-tint);
     color: #ffffff;
     font-size: 15px;
@@ -145,6 +146,7 @@
   #tab-content {
     height: 100%;
     flex: 1;
+    background-color: #f1f1f1;
   }
   .tab-control1{
     position: relative;

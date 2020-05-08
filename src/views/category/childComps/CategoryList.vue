@@ -37,16 +37,16 @@
 
 <style scoped>
   #tab-menu{
-    background-color: #f6f6f6;
+    background-color: #ffffff;
     height: 100%;
     width: 100px;
     box-sizing: border-box;
   }
   .category-list-item{
-    height: 44px;
+    height: 35px;
     width: 100%;
     text-align: center;
-    line-height: 44px;
+    line-height: 35px;
   }
   .category-list-item.active {
     font-weight: 700;

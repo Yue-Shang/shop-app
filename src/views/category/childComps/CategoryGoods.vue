@@ -1,17 +1,21 @@
 <template>
-<!--  <div class="category-goods" v-if="subcategories.list">-->
-<!--    <div class="item" v-for="(item,index) in subcategories.list" :key="index">-->
-<!--      <a :href="item.link">-->
-<!--        <img class="item-img" :src="item.image" alt="" @load="imgLoad">-->
-<!--        <div class="item-text">{{item.title}}</div>-->
-<!--      </a>-->
+<!--  <div>-->
+<!--    <div class="category-goods" v-if="subcategories.list">-->
+<!--      <div class="item" v-for="(item,index) in subcategories.list" :key="index">-->
+<!--        <a :href="item.link">-->
+<!--          <img class="item-img" :src="item.image" alt="" @load="imageLoad">-->
+<!--          <div class="item-text">{{item.title}}</div>-->
+<!--        </a>-->
+<!--      </div>-->
 <!--    </div>-->
 <!--  </div>-->
+
   <div>
     <grid-view :cols="3" :lineSpace="15" :v-margin="20" v-if="subcategories.list" >
       <div class="item" v-for="(item, index) in subcategories.list" :key="index">
         <a :href="item.link">
-          <img class="item-img" :src="item.image" alt=""  @load="imageLoad">
+<!--          <img class="item-img" :src="item.image" alt=""  @load="imageLoad">-->
+          <img class="item-img" :src="item.image" alt="">
           <div class="item-text">{{item.title}}</div>
         </a>
       </div>
@@ -42,12 +46,12 @@
             }
         },
         methods:{
-            imageLoad() {
-                if (!this.isLoad) {
-                    this.$emit('GoodsImageLoad')
-                    this.isLoad = true
-                }
-            }
+            // imageLoad() {
+            //     if (!this.isLoad) {
+            //         this.$emit('GoodsImageLoad')
+            //         this.isLoad = true
+            //     }
+            // }
         }
     }
 </script>
@@ -75,7 +79,7 @@
   /*}*/
 
   /*.item {*/
-  /*  width: 32%;*/
+  /*  width: 90px;*/
   /*  text-align: center;*/
   /*  font-size: 12px;*/
   /*  float: left;*/
