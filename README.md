@@ -20,12 +20,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 注：本项目的后台接口是我先前购买的，这里不便分享，添加微信coderwhy002购买
 ### 项目缩略图
-![Image text](https://github.com/Yue-Shang/shop-app/blob/master/IMG-Storage/(56WB%7BGW7X~YUAKGB%25%5DV%7BZ7.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200509084126987.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NoYW5nTVk5Nw==,size_16,color_FFFFFF,t_70)
 
-![Image text](https://github.com/Yue-Shang/shop-app/blob/master/IMG-Storage/5%24F%5B%5B20U7%5D%25N%246I)IS9%40GY0.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200509084338422.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NoYW5nTVk5Nw==,size_16,color_FFFFFF,t_70)
 
-![Image text](https://github.com/Yue-Shang/shop-app/blob/master/IMG-Storage/V%5DR%7B_0(%7BQJLG%5D5AX86P_25N.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200509084817353.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NoYW5nTVk5Nw==,size_16,color_FFFFFF,t_70)
 
-![Image text](https://github.com/Yue-Shang/shop-app/blob/master/IMG-Storage/ZAD%7B2SLCVDA4%5BFTD%25E%5D5%7BKQ.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200509085033236.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NoYW5nTVk5Nw==,size_16,color_FFFFFF,t_70)
 
-![Image text](https://github.com/Yue-Shang/shop-app/blob/master/IMG-Storage/%7BDR)KEWX%5D%5DFQT4PXORLQ9E5.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200509085107365.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NoYW5nTVk5Nw==,size_16,color_FFFFFF,t_70)
