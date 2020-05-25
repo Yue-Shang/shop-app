@@ -19,24 +19,34 @@
         <span>{{commentInfo.style}}</span>
       </div>
       <div class="info-imgs">
-        <img :src="item" v-for="(item,index) in commentInfo.images" :key="index">
+        <img :src="item" v-for="(item,index) in commentInfo.images" :key="index" @click="showPhoto()">
       </div>
     </div>
+    <!--      评论图片-->
+    <comment-photo :comment-photo="commentPhoto" ref="cphoto"/>
   </div>
 </template>
 
 <script>
   import {formatDate} from "common/utils";
-
+  import CommentPhoto from "components/content/commentPhoto/CommentPhoto";
   export default {
         name: "DetailCommentInfo",
+        components: {
+          CommentPhoto
+        },
+        data(){
+          return{
+              commentPhoto:{}//需要显示的用户评价照片评价
+          }
+        },
         props:{
             commentInfo:{
                 type:Object,
                 default(){
                     return {}
                 }
-            }
+            },
         },
         filters: {
             showDate(value) {
@@ -47,7 +57,16 @@
                 //2.将date进行格式化
                 return formatDate(date,'yyyy-MM-dd')
             }
-        }
+        },
+        methods:{
+            // 显示点击的评论照片
+            showPhoto(){
+              //更新CommentPhoto
+              this.commentPhoto = this.commentInfo
+              // 显示CommentPhoto组件(父组件调用子组件对象的方法)
+              this.$refs.cphoto.toggleShow()
+            }
+       }
     }
 </script>
 

@@ -4,7 +4,7 @@
       <router-view></router-view>
     </keep-alive>
 
-    <main-tab-bar/>
+    <main-tab-bar v-show="$route.meta.shopGoods"/>
     <icon></icon>
     <svg-icon></svg-icon>
   </div>

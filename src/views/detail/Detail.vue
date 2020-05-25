@@ -10,12 +10,17 @@
     <detail-swiper :top-images="topImages"/>
     <detail-base-info :goods="goods"/>
     <detail-shop-info :shop="shop"/>
+<!--      商品详情-->
     <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad"/>
+<!--      商品参数-->
     <detail-param-info ref="params" :param-info="paramInfo"/>
+<!--      用户评价-->
     <detail-comment-info ref="comment" :comment-info="commentInfo"/>
+<!--      推荐列表-->
     <goods-list ref="recommend" :goods="recommends"/>
     </scroll>
-    <detail-bottom-bar @addCart="addToCart"/>
+<!--    添加购物车导航-->
+    <detail-bottom-bar @addCart="addToCart" :shop-cart="shopCart"/>
     <back-top @click.native="backClick" v-show="isShowBackTop"/>
     <toast :message="message" :isShow="isShow"/>
   </div>
@@ -33,13 +38,14 @@
   import Scroll from "components/common/scroll/Scroll";
   import GoodsList from "components/content/goods/GoodsList";
   import Toast from "components/common/toast/Toast";
-  // import BackTop from "components/common/backTop/BackTop";
+  import BackTop from "components/common/backTop/BackTop";
 
   import {getDetail, Goods, Shop, GoodsParam,getRecommend} from "network/detail";
   import {itemListenerMixin,backTopMixin} from "common/mixin";
   import {debounce} from "common/utils";
 
   import { mapActions } from 'vuex'
+
 
   export default {
         name: "Detail",
@@ -55,7 +61,7 @@
             Scroll,
             GoodsList,
             DetailBottomBar,
-            // BackTop
+            BackTop
         },
         mixins: [itemListenerMixin,backTopMixin],
         data() {
@@ -68,12 +74,13 @@
                 paramInfo:{},
                 commentInfo:{},
                 recommends:[],
+                shopCart:{},//接收添加到到购物车商品信息
                 themeTopYs: [],
                 getThemTopY:null,
                 currentIndex: 0,
                 isShowBackTop:false,
                 message: '',
-                isShow: false
+                isShow: false,
             }
         },
         created() {
@@ -105,6 +112,7 @@
             getDetail() {
                 getDetail(this.iid).then(res => {
                     console.log(res);
+
                     const data = res.result;
 
                     // 1.获取顶部轮播图数据
@@ -127,6 +135,9 @@
                     if (data.rate.cRate !== 0) {
                         this.commentInfo = data.rate.list[0]
                     }
+                    //7.获取购物车选择的商品参数
+                    this.shopCart = data.skuInfo
+                    console.log(this.shopCart);
                 })
             },
             getRecommend() {
@@ -140,6 +151,10 @@
             },
             titleClick(index) {
                 this.$refs.scroll.scrollTo(0, -this.themeTopYs[index]+44,100)
+                // 如果有一个没有比如评论没有,我们就跳到下一个
+                if(isNaN(-this.themeTopYs[index])==true){
+                    this.$refs.scroll.scrollTo(0, -this.themeTopYs[index + 1]+44,100)
+                }
                 console.log(-this.themeTopYs[index]);
             },
             contentScroll(position) {
@@ -204,6 +219,6 @@
   }
 
   .content{
-    height: calc(100% - 44px - 58px);
+    height: calc(100% - 44px - 500px);
   }
 </style>

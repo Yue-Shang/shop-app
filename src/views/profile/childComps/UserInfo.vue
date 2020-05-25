@@ -1,6 +1,6 @@
 <template>
   <div id="user-info">
-    <a href="#" class="clear-fix">
+    <router-link to="/login" class="clear-fix">
       <slot name="user-icon">
         <svg class="privateImage-svg left">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#avatar-default"></use>
@@ -18,7 +18,7 @@
         </div>
       </div>
       <svg data-v-735ff1be="" fill="#fff" class="arrow-svg right"><use data-v-735ff1be="" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use></svg>
-    </a>
+    </router-link>
   </div>
 </template>
 
@@ -29,7 +29,7 @@
 </script>
 
 <style scoped>
-  #user-info {
+  #user-info{
     background-color: var(--color-tint);
     padding: 15px;
     margin-top: -5px;

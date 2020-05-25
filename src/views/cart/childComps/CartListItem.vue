@@ -1,28 +1,32 @@
 <template>
-  <div id="shop-item">
-    <div class="item-selector">
-      <check-button :is-checked="product.checked" @click.native="checkClick"></check-button>
-    </div>
-    <div class="item-img">
-      <img :src="product.image" alt="商品图片">
-    </div>
-    <div class="item-info">
-      <div class="item-title">{{product.title}}</div>
-      <div class="item-desc">{{product.desc}}</div>
-      <div class="info-bottom">
-        <div class="item-price left">￥{{product.lowNowPrice}}</div>
-        <div class="item-count right">×{{product.count}}</div>
+  <cart-detele-btn>
+    <div id="shop-item">
+      <div class="item-selector">
+        <check-button :is-checked="product.checked" @click.native="checkClick"></check-button>
+      </div>
+      <div class="item-img">
+        <img :src="product.image" alt="商品图片">
+      </div>
+      <div class="item-info">
+        <div class="item-title">{{product.title}}</div>
+        <div class="item-desc">{{product.desc}}</div>
+        <div class="info-bottom">
+          <div class="item-price left">￥{{product.lowNowPrice}}</div>
+          <div class="item-count right">×{{product.count}}</div>
+        </div>
       </div>
     </div>
-  </div>
+  </cart-detele-btn>
 </template>
 
 <script>
     import CheckButton from "components/content/checkButton/CheckButton";
+    import CartDeteleBtn from "./CartDeteleBtn";
+
 
     export default {
         name: "CartListItem",
-        components: {CheckButton},
+        components: {CartDeteleBtn, CheckButton},
         props: {
             product: {
                 type: Object,
